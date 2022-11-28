@@ -62,3 +62,9 @@ console.log("Los Elementos del array son: ", product.getProduct());
 //comprobar si existe ID
 product.getProductByID(4)
 product.getProductByID(5)
+
+
+
+
+
+
