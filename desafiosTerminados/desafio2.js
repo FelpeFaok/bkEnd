@@ -60,8 +60,7 @@ class ProductManagerFilesystem {
     }
 
     getProductByID = async (idIngre) => {
-        const lect = await fs.promises.readFile(this.path, 'utf-8')
-        const pFound = await JSON.parse(lect)
+        const pFound = await this.getProducts();
         try{
         if ( pFound[idIngre-1] === undefined){
             console.log("No encontrado");
@@ -77,15 +76,17 @@ class ProductManagerFilesystem {
     }
 
     async deleteProduct (idDelete){
-        const lect = await fs.promises.readFile(this.path, 'utf-8')
-        const pdelete = await JSON.parse(lect)
+        const pdelete = await this.getProducts();
         if (pdelete[idDelete-1] === undefined){
             console.log(" No se borro nada ");
         }else {
+            const newProduct = {}
             pdelete.splice(idDelete-1, 1); 
-            console.log("array", pdelete, "array");
-            pdelete.push(pdelete)
-            return pdelete
+            // console.log("array", pdelete, "array");
+            pdelete.push(newProduct)
+            console.log(newProduct);
+            await fs.promises.writeFile(this.path, JSON.stringify(pdelete, null, 3));
+            return newProduct;
     }
 
     }
